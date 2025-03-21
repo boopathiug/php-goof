@@ -18,7 +18,7 @@ $sql = "INSERT INTO users (name, email) VALUES ('$name', '$email')";
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Errossr: " . $sql . "<br>" . mysqli_error($conn);
 }
 
 // Close connection

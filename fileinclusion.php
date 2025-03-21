@@ -1,15 +1,4 @@
 <?php
-$incfile = $_REQUEST['file'];
-include($incfile.'.php');
-?>
-
-<?php
-$offset = $argv[0]; // beware, no input validation!
-$query  = "SELECT id, name FROM products ORDER BY name LIMIT 20 OFFSET $offset;";
-$result = pg_query($conn, $query);
-?>
-
-<?php
 // Connect to database
 $conn = mysqli_connect("localhost", "root", "", "testdb");
 
@@ -18,21 +7,18 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Get user input (vulnerable to SQL injection)
-$username = $_GET['username'];
-$password = $_GET['password'];
+// Get POST data (vulnerable to SQL injection)
+$name = $_POST['name'];
+$email = $_POST['email'];
 
-// SQL query (vulnerable to SQL injection)
-$sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+// SQL query (vulnerable)
+$sql = "INSERT INTO users (name, email) VALUES ('$name', '$email')";
 
 // Execute query
-$result = mysqli_query($conn, $sql);
-
-// Check if user exists
-if (mysqli_num_rows($result) > 0) {
-    echo "Login successful!";
+if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
 } else {
-    echo "Invalid username or password.";
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
 
 // Close connection

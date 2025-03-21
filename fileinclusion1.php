@@ -1,6 +1,6 @@
 <?php
 // Connect to database
-$conn = mysqli_connect("localhost", "root", "password123", "testdb");
+$conn = mysqli_connect("localhost", "root", "password12a3", "testdb");
 
 // Check connection
 if (!$conn) {
